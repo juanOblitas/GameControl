@@ -33,8 +33,6 @@ public class Acelerometro extends AppCompatActivity implements SensorEventListen
         sensor = sensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorMgr.registerListener(this, sensor , SensorManager.SENSOR_DELAY_NORMAL);
         linearLayoutAcelerometro=(LinearLayout)findViewById(R.id.layout_acelerometro);
-        linearLayoutAcelerometro.setBackgroundColor(Color.parseColor("#800000"));
-
     }
 
     @Override
@@ -44,6 +42,20 @@ public class Acelerometro extends AppCompatActivity implements SensorEventListen
             coordinateY.setText(String.valueOf(event.values[1]));
             coordinateZ.setText(String.valueOf(event.values[2]));
         }
+        //vamos a controlar el cambio de color
+        //Creamos un array con los distintos colores
+        String [] colors={"#800000","#854646","#5A5858","#5B0202","#D30202","#713030","#ED7373","#BE1693",
+        "#08C4D8","#CAA615"};
+        //suma de variables x,y and z
+        float sumVariables=Float.parseFloat(coordinateX.getText().toString())
+                +Float.parseFloat(coordinateY.getText().toString())+
+                Float.parseFloat(coordinateZ.getText().toString());
+        int redondear=(int)Math.round(sumVariables);
+        if(redondear>=0 && redondear<colors.length)
+            linearLayoutAcelerometro.setBackgroundColor(Color.parseColor(colors[redondear]));
+        else
+            linearLayoutAcelerometro.setBackgroundColor(Color.parseColor("#C0561D"));
+
     }
 
     @Override
